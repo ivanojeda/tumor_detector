@@ -1,0 +1,32 @@
+
+{% extends 'layout.html' %}
+
+{% block title %} Index {% endblock %}
+
+{% block content %}
+<table class="table table-striped table-hover">
+    <tr>
+        <th>DNI</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Modificar paciente</th>
+        <th>
+      </tr>
+      {% for paciente in pacientes %}
+      <tr>
+        <td>{{paciente.dni}}</td>
+        <td>{{paciente.nombre}}</td>
+        <td>{{paciente.apellidos}}</td>
+        <td>
+          <a href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Ver paciente</button></a>
+          <a href="/paciente/{{paciente.id}}/edit"><button type="button" class="btn btn-secondary">Editar datos de paciente</button></a>
+          <a href="/paciente/{{paciente.id}}/delete"><button type="button" class="btn btn-danger">Borrar Paciente</button></a>
+        </td>
+      </tr>
+      {% endfor %}
+</table>
+
+<a href="/crear_paciente">
+    <input type="button" value="click here">
+</a>
+{% endblock %}
