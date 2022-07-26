@@ -13,7 +13,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login
 
 from .decorators import user_not_authenticated
-from .form import pacienteForm, userRegistrationForm
+from .form import pacienteForm, userRegistrationForm, radigradiaForm
 from .models import Paciente, Radiografia
 
 def validador_dni(dni):
@@ -130,13 +130,6 @@ def create_paciente(request):
         )
 
 @login_required
-def ver_paciente(request, id_paciente):
-    return render(
-        request=request,
-        template_name="paciente/view.html",
-    )
-
-@login_required
 def editar_paciente(request, id_paciente):
     paciente = Paciente.objects.get(pk=id_paciente)
     error = {}
@@ -171,8 +164,33 @@ def borrar_paciente(request, id_paciente):
     return redirect('/index')
 
 @login_required
-def subir_radiografia(request):
+def ver_paciente(request, id_paciente):
+    paciente = Paciente.objects.get(pk=id_paciente)
+    return render(
+        request=request,
+        template_name="paciente/view.html",
+        context={"paciente": paciente}
+    )
+
+@login_required
+def subir_radiografia(request, id_paciente):
+    paciente = Paciente.objects.get(pk=id_paciente)
+    error = {}
+    if request.method == "POST":
+        form = radigradiaForm(request.POST)
+        if form.is_valid():
+            radigrafia = Radiografia()
+            radigrafia.nombre = form.cleaned_data['nombre']
+            radigrafia.img_orig = form.cleaned_data['img']
+            radigrafia.paciente_id = id_paciente
+            radigrafia.save()
+            return redirect('/index')
+        else:
+            for error in list(form.errors.values()):
+                messages.error(request, error)
+    form = pacienteForm()
     return render(
         request=request,
         template_name="radiografia/subir_radiografia.html",
+        context={"paciente": paciente}
     )

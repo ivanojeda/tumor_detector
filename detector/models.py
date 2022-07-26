@@ -12,7 +12,7 @@ class Paciente(models.Model):
     medico = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Radiografia(models.Model):
-    img_orig = models.BinaryField(upload_to='img', height_field=256, width_field=256)
-    img_detectado = models.BinaryField(upload_to='img', height_field=256, width_field=256)
-    fecha = models.DateTimeField('fecha')
+    img_orig = models.BinaryField()
+    img_detectado = models.BinaryField()
+    fecha = models.DateTimeField(auto_now_add=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)

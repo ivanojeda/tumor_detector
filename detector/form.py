@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from pkg_resources import require
 
 
 
@@ -25,3 +26,9 @@ class pacienteForm(forms.Form):
     nombre = forms.CharField(label='Nombre del paciente', required=True)
     apellidos = forms.CharField(label='Apellidos del paciente', required=False)
     comentario = forms.CharField(label='Descripcion', widget=forms.Textarea, required=True)
+
+class radigradiaForm(forms.Form):
+    img_orig = forms.ImageField()
+    img_detectado = forms.ImageField()
+    fecha = forms.DateTimeInput()
+    paciente = forms.IntegerField()

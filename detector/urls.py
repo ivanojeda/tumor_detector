@@ -14,5 +14,5 @@ urlpatterns = [
     path('paciente/<int:id_paciente>/edit', views.editar_paciente, name='editar_paciente'),
     path('paciente/<int:id_paciente>/delete', views.borrar_paciente, name='borrar_paciente'),
 
-    path('subir_radiografia', views.subir_radiografia, name='subir_radiografias')
+    path('paciente/<int:id_paciente>/subir_radiografia', views.subir_radiografia, name='subir_radiografias')
 ]
