@@ -27,7 +27,8 @@ def tpredict(imagedata):
     else:
         model2=load_model(RESUNET_PATH)
         pred2=model2.predict(imagetensor)
-        return __saveimage(pred2)        
+        return __saveimage(pred2)
+          
 
         
 
