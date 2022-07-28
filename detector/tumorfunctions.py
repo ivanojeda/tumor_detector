@@ -41,6 +41,7 @@ def tpredict(inputImgPath,debug=False):
     inputImg=cv2.imread(inputImgPath)
     resnet=load_model(RESNET_PATH)
     tumor=resnet.predict(resnetImg(inputImg))
+    print(tumor)
     if tumor<0.5:
         mask=np.zeros(shape=inputImg.shape)
     else:
