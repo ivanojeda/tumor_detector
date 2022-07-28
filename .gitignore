@@ -2,3 +2,4 @@
 .vs/VSWorkspaceState.json
 .vs/slnx.sqlite
 *.pyc
+detector/IA/resnet.h5
