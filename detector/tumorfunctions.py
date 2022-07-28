@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import cv2
 import tensorflow as tf
 from tensorflow.keras.models import load_model
@@ -13,16 +14,26 @@ RESUNET_BACKUP_PATH='IA/resunet_backup.h5'
 
 resunet_objects=None
 
-def tpredict(inputImgPath,outputImgPath):
-    image=cv2.imread(inputImgPath)
+def tpredict(inputImgPath,outputImgPath,debug=False):
+    inputImg=cv2.imread(inputImgPath)
     resnet=load_model(RESNET_PATH)
-    tumor=resnet.predict(image)
+    tumor=resnet.predict(inputImg)
     if tumor<0.5:
-        mask=np.zeros(shape=image.shape)
+        mask=np.zeros(shape=inputImg.shape)
     else:
+        img=inputImg[np.newaxis,:,:,:]
         resunet=load_model(RESUNET_PATH,custom_objects=)
-        mask=resunet.predict(image)
-    return cv2.imwrite(outputImgPath,pred2)
+        rawmask=resunet.predict(img)[0,:,:,0]
+        mask=cv2.merge((mask,mask,mask))
+    outputImg=np.maximize(inputImg,mask)
+    if debug==True:
+        fig,ax=plt.subplots(ncols=2,figsize=(10,20))
+        ax[0].imshow(inputImg)
+        ax[0].set_title('input')
+        ax[1].imshow(outputImg)
+        ax[1].set_title('output')
+    else:
+        return cv2.imwrite(outputImgPath,outputImg)
           
 
         
