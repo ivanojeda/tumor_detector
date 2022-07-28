@@ -42,16 +42,18 @@ def tpredict(inputImgPath,debug=False):
     inputImg=cv2.imread(inputImgPath)
     try:
         resnet=load_model(RESNET_PATH)
-        tumor=resnet.predict(resnetImg(inputImg))
+        tumor=resnet.predict(resnetImg(inputImg))[0][0]
         print(tumor)
     except:
         tumor=1
     if tumor<0.5:
         mask=np.zeros(shape=inputImg.shape)
+        message='No tiene tumor.'
     else:
         resunet=load_model(RESUNET_PATH,custom_objects=resunet_objects)
         rawmask=resunet.predict(resunetImg(inputImg))[0,:,:,0]
         mask=cv2.merge((rawmask,rawmask,rawmask))
+        message='Tiene tumor.'
 
     imsize=inputImg.shape[0]
     mask=cv2.resize(mask ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)*255
@@ -66,23 +68,11 @@ def tpredict(inputImgPath,debug=False):
         ax[1].set_title('Pred Mask',fontsize=12)
         ax[2].imshow(outputImg)
         ax[2].set_title(outputImgPath,fontsize=12)
+        print(message)
         plt.show()
     else:
         return cv2.imwrite(outputImgPath,outputImg)
           
-#tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True)
-
-from split_file_reader import SplitFileReader
-from zipfile import ZipFile
-
-filepaths = [
-    "detector\\IA\\resnet\\fullresnet01.zip",
-    "detector\\IA\\resnet\\fullresnet02.zip",
-]
-
-with SplitFileReader(filepaths) as sfr:
-    with ZipFile(file=sfr, mode="r") as zfile:     
-        file=zfile.extractall()
-
-load_model(file).summary()
+tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True) #tumor
+#tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
 
