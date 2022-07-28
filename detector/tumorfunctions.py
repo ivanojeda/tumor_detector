@@ -19,18 +19,33 @@ def getOutputPath(inputPath):
     inpathsp=inputPath.split('.')
     return inpathsp[0]+'_P.'+inpathsp[1]
 
+def resnetImg(img):
+    imsize=256
+    if img.shape!=(256,256,3):
+        opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
+    else: 
+        opimg = img
+    return img[np.newaxis,:,:,:]
+
+def resunetImg(img):
+    imsize=128
+    if img.shape!=(256,256,3):
+        opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
+    else:
+        opimg=img
+    opimg=opimg/255.
+    return img[np.newaxis,:,:,:]
+
 def tpredict(inputImgPath,debug=False):
     outputImgPath=getOutputPath(inputImgPath)
-    inputImg=cv2.resize(cv2.imread(inputImgPath),dsize=(128,128),interpolation=cv2.INTER_NEAREST)/255.
-    #resnet=load_model(RESNET_PATH)
-    #tumor=resnet.predict(inputImg)
-    tumor=1
+    inputImg=cv2.imread(inputImgPath)
+    resnet=load_model(RESNET_PATH)
+    tumor=resnet.predict(resnetImg(inputImg))
     if tumor<0.5:
         mask=np.zeros(shape=inputImg.shape)
     else:
-        img=inputImg[np.newaxis,:,:,:]
         resunet=load_model(RESUNET_PATH,custom_objects=resunet_objects)
-        rawmask=resunet.predict(img)[0,:,:,0]
+        rawmask=resunet.predict(resunetImg(inputImg))[0,:,:,0]
         mask=cv2.merge((rawmask,rawmask,rawmask))
     outputImg=np.maximum(inputImg,mask)
     if debug==True:
