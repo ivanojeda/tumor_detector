@@ -72,7 +72,8 @@ def tpredict(inputImgPath,debug=False):
         plt.show()
     else:
         return cv2.imwrite(outputImgPath,outputImg)
-          
-tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True) #tumor
-#tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
+
+if __name__ == '__main__':          
+    tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True) #tumor
+    #tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
 
