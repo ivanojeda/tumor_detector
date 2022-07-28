@@ -70,7 +70,19 @@ def tpredict(inputImgPath,debug=False):
     else:
         return cv2.imwrite(outputImgPath,outputImg)
           
-tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True)
-     
+#tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True)
 
+from split_file_reader import SplitFileReader
+from zipfile import ZipFile
+
+filepaths = [
+    "detector\\IA\\resnet\\fullresnet01.zip",
+    "detector\\IA\\resnet\\fullresnet02.zip",
+]
+
+with SplitFileReader(filepaths) as sfr:
+    with ZipFile(file=sfr, mode="r") as zfile:     
+        file=zfile.extractall()
+
+load_model(file).summary()
 
