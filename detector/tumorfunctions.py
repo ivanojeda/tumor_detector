@@ -15,7 +15,12 @@ RESUNET_BACKUP_PATH='detector\\IA\\resunet_backup.h5'
 
 resunet_objects={'tversky':tversky,'focal_tversky_loss':focal_tversky_loss}
 
-def tpredict(inputImgPath,outputImgPath=None,debug=False):
+def getOutputPath(inputPath):
+    inpathsp=inputPath.split('.')
+    return inpathsp[0]+'_P.'+inpathsp[1]
+
+def tpredict(inputImgPath,debug=False):
+    outputImgPath=getOutputPath(inputImgPath)
     inputImg=cv2.resize(cv2.imread(inputImgPath),dsize=(128,128),interpolation=cv2.INTER_NEAREST)/255.
     #resnet=load_model(RESNET_PATH)
     #tumor=resnet.predict(inputImg)
@@ -31,9 +36,9 @@ def tpredict(inputImgPath,outputImgPath=None,debug=False):
     if debug==True:
         fig,ax=plt.subplots(ncols=2,figsize=(10,20))
         ax[0].imshow(inputImg)
-        ax[0].set_title('input')
+        ax[0].set_title(inputImgPath)
         ax[1].imshow(outputImg)
-        ax[1].set_title('output')
+        ax[1].set_title(outputImgPath)
         plt.show()
     else:
         return cv2.imwrite(outputImgPath,outputImg)
