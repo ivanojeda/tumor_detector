@@ -1,3 +1,4 @@
+from math import trunc
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
@@ -29,32 +30,42 @@ def resnetImg(img):
 
 def resunetImg(img):
     imsize=128
-    if img.shape!=(256,256,3):
+    if imsize!=256:
         opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
     else:
         opimg=img
     opimg=opimg/255.
-    return img[np.newaxis,:,:,:]
+    return opimg[np.newaxis,:,:,:]
 
 def tpredict(inputImgPath,debug=False):
     outputImgPath=getOutputPath(inputImgPath)
     inputImg=cv2.imread(inputImgPath)
-    resnet=load_model(RESNET_PATH)
-    tumor=resnet.predict(resnetImg(inputImg))
-    print(tumor)
+    try:
+        resnet=load_model(RESNET_PATH)
+        tumor=resnet.predict(resnetImg(inputImg))
+        print(tumor)
+    except:
+        tumor=1
     if tumor<0.5:
         mask=np.zeros(shape=inputImg.shape)
     else:
         resunet=load_model(RESUNET_PATH,custom_objects=resunet_objects)
         rawmask=resunet.predict(resunetImg(inputImg))[0,:,:,0]
         mask=cv2.merge((rawmask,rawmask,rawmask))
+
+    imsize=inputImg.shape[0]
+    mask=cv2.resize(mask ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)*255
+    mask=mask.astype('int')
     outputImg=np.maximum(inputImg,mask)
+
     if debug==True:
-        fig,ax=plt.subplots(ncols=2,figsize=(10,20))
+        fig,ax=plt.subplots(ncols=3,figsize=(10,30))
         ax[0].imshow(inputImg)
-        ax[0].set_title(inputImgPath)
-        ax[1].imshow(outputImg)
-        ax[1].set_title(outputImgPath)
+        ax[0].set_title(inputImgPath,fontsize=12)
+        ax[1].imshow(mask)
+        ax[1].set_title('Pred Mask',fontsize=12)
+        ax[2].imshow(outputImg)
+        ax[2].set_title(outputImgPath,fontsize=12)
         plt.show()
     else:
         return cv2.imwrite(outputImgPath,outputImg)
