@@ -40,6 +40,9 @@ def resunetImg(img):
 def tpredict(inputImgPath,debug=False):
     outputImgPath=getOutputPath(inputImgPath)
     inputImg=cv2.imread(inputImgPath)
+    if inputImg.shape !=(256,256,3):
+        inputImg.resize(inputImg ,dsize=(256,256),interpolation=cv2.INTER_NEAREST)
+    result={}
     try:
         resnet=load_model(RESNET_PATH)
         tumor=resnet.predict(resnetImg(inputImg))[0][0]
@@ -47,9 +50,11 @@ def tpredict(inputImgPath,debug=False):
     except:
         tumor=1
     if tumor<0.5:
+        result['tumor']=False
         mask=np.zeros(shape=inputImg.shape)
         message='No tiene tumor.'
     else:
+        result['tumor']=True
         resunet=load_model(RESUNET_PATH,custom_objects=resunet_objects)
         rawmask=resunet.predict(resunetImg(inputImg))[0,:,:,0]
         mask=cv2.merge((rawmask,rawmask,rawmask))
@@ -71,9 +76,11 @@ def tpredict(inputImgPath,debug=False):
         print(message)
         plt.show()
     else:
-        return cv2.imwrite(outputImgPath,outputImg)
+        result['opimg']=outputImgPath.split('\\')[-1]
+        cv2.imwrite(outputImgPath,outputImg.astype(np.uint8))
+        return result
 
 if __name__ == '__main__':          
-    tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif',debug=True) #tumor
+    tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif') #tumor
     #tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
 
