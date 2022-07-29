@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.db import models
 from django.contrib.auth import get_user_model
 # Create your models here.
@@ -12,7 +13,7 @@ class Paciente(models.Model):
     medico = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Radiografia(models.Model):
-    img_orig = models.BinaryField()
-    img_detectado = models.BinaryField()
+    img_orig = models.ImageField(null=True, blank=True, upload_to="img/")
+    img_detectado = models.ImageField(null=True, blank=True, upload_to="img/")
     fecha = models.DateTimeField(auto_now_add=True)
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)

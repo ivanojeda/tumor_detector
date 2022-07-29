@@ -177,14 +177,34 @@ def subir_radiografia(request, id_paciente):
     paciente = Paciente.objects.get(pk=id_paciente)
     error = {}
     if request.method == "POST":
-        form = radigradiaForm(request.POST)
+        img= request.FILES['img']
+        radigrafia = Radiografia(img_orig=img,
+                                img_detectado='null',
+                                paciente_id = id_paciente)
+        radigrafia.save()
+        return redirect("/paciente/"+str(id_paciente)+"/resultado/"+str(radigrafia.id))
+
+    form = pacienteForm()
+    return render(
+        request=request,
+        template_name="radiografia/subir_radiografia.html",
+        context={"paciente": paciente}
+    )
+
+'''
+@login_required
+def subir_radiografia(request, id_paciente):
+    paciente = Paciente.objects.get(pk=id_paciente)
+    error = {}
+    if request.method == "POST":
+        form = radigradiaForm(request.FILES['img'])
+        print(form.is_valid())
         if form.is_valid():
-            radigrafia = Radiografia()
-            radigrafia.nombre = form.cleaned_data['nombre']
-            radigrafia.img_orig = form.cleaned_data['img']
-            radigrafia.paciente_id = id_paciente
+            img= request.FILES['img']
+            radigrafia = Radiografia(img_orig=img,
+                                img_detectado='null',
+                                paciente_id = id_paciente)
             radigrafia.save()
-            return redirect('/index')
         else:
             for error in list(form.errors.values()):
                 messages.error(request, error)
@@ -193,4 +213,16 @@ def subir_radiografia(request, id_paciente):
         request=request,
         template_name="radiografia/subir_radiografia.html",
         context={"paciente": paciente}
+    )
+'''
+
+def resultado(request, id_paciente, id_radiografia):
+    paciente = Paciente.objects.get(pk=id_paciente)
+    imgOrig = Radiografia.objects.get(pk=id_radiografia)
+    
+    return render(
+        request=request,
+        template_name="radiografia/analisis.html",
+        context={"paciente": paciente,
+                "imagen" : imgOrig}
     )

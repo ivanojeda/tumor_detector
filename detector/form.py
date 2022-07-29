@@ -28,7 +28,4 @@ class pacienteForm(forms.Form):
     comentario = forms.CharField(label='Descripcion', widget=forms.Textarea, required=True)
 
 class radigradiaForm(forms.Form):
-    img_orig = forms.ImageField()
-    img_detectado = forms.ImageField()
-    fecha = forms.DateTimeInput()
-    paciente = forms.IntegerField()
+    img_orig = forms.ImageField(label="imagen de la radiografia")
