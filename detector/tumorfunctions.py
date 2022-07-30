@@ -69,7 +69,7 @@ def tpredict(inputImgPath,debug=False):
         cv2.imwrite(outputImgPath,outputImg.astype(np.uint8))
         return result
 
-if __name__ == '__main__':          
+if __name__ == '__main__':     
     tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif') #tumor
     #tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
 
