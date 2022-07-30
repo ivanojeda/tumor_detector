@@ -21,20 +21,10 @@ def getOutputPath(inputPath):
     return inpathsp[0]+'_P.'+inpathsp[1]
 
 def resnetImg(img):
-    imsize=256
-    if img.shape!=(256,256,3):
-        opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
-    else: 
-        opimg = img
     return img[np.newaxis,:,:,:]
 
 def resunetImg(img):
-    imsize=256
-    if img.shape!=(256,256,3):
-        opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
-    else:
-        opimg = img
-    opimg = opimg/255.
+    opimg = img/255.
     return opimg[np.newaxis,:,:,:]
 
 def tpredict(inputImgPath,debug=False):
