@@ -30,11 +30,11 @@ def resnetImg(img):
 
 def resunetImg(img):
     imsize=256
-    if imsize!=256:
+    if img.shape!=(256,256,3):
         opimg = cv2.resize(img ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)
     else:
-        opimg=img
-    opimg=opimg/255.
+        opimg = img
+    opimg = opimg/255.
     return opimg[np.newaxis,:,:,:]
 
 def tpredict(inputImgPath,debug=False):
@@ -58,12 +58,10 @@ def tpredict(inputImgPath,debug=False):
         resunet=load_model(RESUNET_PATH,custom_objects=resunet_objects)
         rawmask=resunet.predict(resunetImg(inputImg))[0,:,:,0]
         mask=cv2.merge((rawmask,rawmask,rawmask))
+        mask = mask * 255
         message='Tiene tumor.'
-
-    imsize=inputImg.shape[0]
-    #mask=cv2.resize(mask ,dsize=(imsize,imsize),interpolation=cv2.INTER_NEAREST)*255
-    mask = mask * 255
-    mask=mask.astype('int')
+ 
+    mask= mask.astype('int')
     outputImg=np.maximum(inputImg,mask)
 
     if debug==True:
