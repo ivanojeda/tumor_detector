@@ -9,4 +9,5 @@ urlpatterns = [
     path('', include('detector.urls')),
     path('/admin', admin.site.urls),
     path('', RedirectView.as_view(url='/index/', permanent=True)),
+    path('detector/', RedirectView.as_view(url='/index/', permanent=True)),
 ]

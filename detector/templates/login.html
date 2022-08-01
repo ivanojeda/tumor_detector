@@ -17,9 +17,11 @@
                     <div class="form-group mb-3">
                         <label for="password" class="form-label">Contraseña:</label>
                         <input type="password" id="password" name="password" class="form-control">
+                        <span id="passwordHelpInline" class="form-text">Mas de 9 caracteres</span>
                     </div>
                     <button class="btn btn-primary" type="submit">Login</button>
                 </form>
+                {{ error.dni }}
                 <div class="pt-3">
                     <small class="text-muted cuenta">
                         ¿No tienes cuenta? <a class="ml-2" href="{% url 'register' %}">Registrate</a>

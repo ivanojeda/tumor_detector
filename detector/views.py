@@ -21,42 +21,51 @@ from .functions import validador_dni
 
 @user_not_authenticated
 def register(request):
+    error = ""
     if request.user.is_authenticated:
         return redirect('/register')
     if request.method == "POST":
-        form = userRegistrationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect('/index')
-
+        if validador_dni(request.POST['username']) == False:
+            error['dni']="DNI incorrecto"
         else:
-            for error in list(form.errors.values()):
-                messages.error(request, error)
+            form = userRegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                auth_login(request, user)
+                return redirect('/index')
+
+            else:
+                for error in list(form.errors.values()):
+                    messages.error(request, error)
     else:
         form = userRegistrationForm()
     return render(
         request=request,
         template_name= 'register.html',
-        context={'form': form}
+        context={'form': form,
+        'error': error}
     )
 
 @user_not_authenticated
 def login(request):
+    error= ""
     if request.user.is_authenticated:
         return redirect("/index")
 
     if request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
-            user = authenticate(
-                username=form.cleaned_data["username"],
-                password=form.cleaned_data["password"],
-            )
-            if user is not None:
-                auth_login(request, user)
-                messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
-                return redirect("/index")
+            if validador_dni(request.POST['username']) == False:
+                error['dni']="DNI incorrecto"
+            else:
+                user = authenticate(
+                    username=form.cleaned_data["username"],
+                    password=form.cleaned_data["password"],
+                )
+                if user is not None:
+                    auth_login(request, user)
+                    messages.success(request, f"Hello <b>{user.username}</b>! You have been logged in")
+                    return redirect("/index")
 
         else:
             for error in list(form.errors.values()):
@@ -67,7 +76,8 @@ def login(request):
     return render(
         request=request,
         template_name="login.html",
-        context={"form": form}
+        context={"form": form,
+        'error': error}
         )
 
 @login_required
