@@ -210,12 +210,7 @@ def resultado(request, id_paciente, id_radiografia):
 
 @login_required
 def borrar_radiografia(request, id_paciente, id_radiografia):
-    import os
-
     paciente = Paciente.objects.get(pk=id_paciente)
     radiografia = Radiografia.objects.get(pk=id_radiografia)
-    os.remove(os.path.join(str(radiografia.img_orig)))
-    if radiografia.img_detectado is not None:
-     os.remove(os.path.join(str(radiografia.img_detectado)))
     radiografia.delete()
     return redirect(f'/paciente/{paciente.id}')

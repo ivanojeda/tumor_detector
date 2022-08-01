@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="content-section">
-  <form method="POST">
+  <form class="form-login" method="POST">
       {% csrf_token %}
       <fieldset class="form-group">
           <legend class="border-bottom mb-4">Log In</legend>
@@ -20,12 +20,9 @@
       </div>
   </form>
   <div class="border-top pt-3">
-      <small class="text-muted">
-          Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+      <small class="text-muted cuenta">
+          ¿No tienes cuenta? <a class="ml-2" href="{% url 'register' %}">Registrate</a>
       </small><br>
-      <small class="text-muted">
-          <a href="/">Forgot password?</a>
-      </small>
   </div>
 </div>
 {% endblock %}
