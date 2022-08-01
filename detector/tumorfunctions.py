@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import cv2
 import tensorflow as tf
 from tensorflow.keras.models import load_model
-from aiutils import focal_tversky_loss, tversky
+from .aiutils import focal_tversky_loss, tversky
 
 RESNET_PATH='detector\\IA\\resnet.h5'
 RESUNET_PATH='detector\\IA\\resunet.h5'
@@ -69,7 +69,7 @@ def tpredict(inputImgPath,debug=False):
         cv2.imwrite(outputImgPath,outputImg.astype(np.uint8))
         return result
 
-if __name__ == '__main__':     
+if __name__ == '__main__':          
     tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_13.tif') #tumor
     #tpredict('detector\\testimgs\\TCGA_CS_4944_20010208_17.tif',debug=True) #no tumor
 

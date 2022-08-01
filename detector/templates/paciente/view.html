@@ -13,16 +13,49 @@
         <th>
       </tr>
 
+      {% for radiografia in radiografias %}
       <tr>
-        <td>a</td>
-        <td>b</td>
-        <td>csadfvb d grege sd afsv wrafs yed</td>
-        <td>d</td>
+        <td><img class="img-fluid" src="{{radiografia.img_orig.url}}"></td>
+        <td>{%if radiografia.img_detectado is not None %}
+          <img class="img-fluid" src="{{radiografia.img_detectado.url}}">
+          {% else %} No tiene tumor {% endif %}</td>
+        <td>{{radiografia.fecha}}</td>
+        <td>
+          <a href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Ver paciente</button></a>
+          <a href="/paciente/{{paciente.id}}/edit"><button type="button" class="btn btn-secondary">Editar datos de paciente</button></a>
+
+
+          <!-- Button trigger modal -->
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Borrar Radiografia
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">¿DESEAS BORRAR LA RADIOGRAFIA DE LA BASE DE DATOS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Presione "Confirmar" para borrar al paciente de la base de datos
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <a href="/paciente/{{paciente.id}}/delete"><button type="button" class="btn btn-danger">Confirmar</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+        </td>
       </tr>
+      {% endfor %}
 
 </table>
 
 <a href="{{paciente.id}}/subir_radiografia">
-    <input type="button" value="click here">
+    <input type="button" value="Subir radiografia">
 </a>
 {% endblock %}

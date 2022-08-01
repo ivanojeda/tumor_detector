@@ -1,4 +1,5 @@
 from imp import reload
+from operator import concat
 from django.shortcuts import render, redirect
 from datetime import date
 from hashlib import new
@@ -15,22 +16,8 @@ from django.contrib.auth import login as auth_login
 from .decorators import user_not_authenticated
 from .form import pacienteForm, userRegistrationForm, radigradiaForm
 from .models import Paciente, Radiografia
-
-def validador_dni(dni):
-    tabla = "TRWAGMYFPDXBNJZSQVHLCKE"
-    dig_ext = "XYZ"
-    reemp_dig_ext = {'X':'0', 'Y':'1', 'Z':'2'}
-    numeros = "1234567890"
-    dni = dni.upper()
-    if len(dni) == 9:
-        dig_control = dni[8]
-        dni = dni[:8]
-        if dni[0] in dig_ext:
-            dni = dni.replace(dni[0], reemp_dig_ext[dni[0]])
-        return len(dni) == len([n for n in dni if n in numeros]) \
-            and tabla[int(dni)%23] == dig_control
-    return False
-
+from .tumorfunctions import tpredict
+from .functions import validador_dni
 
 @user_not_authenticated
 def register(request):
@@ -166,23 +153,26 @@ def borrar_paciente(request, id_paciente):
 @login_required
 def ver_paciente(request, id_paciente):
     paciente = Paciente.objects.get(pk=id_paciente)
+    radiografias = Radiografia.objects.filter(paciente_id=id_paciente)
     return render(
         request=request,
         template_name="paciente/view.html",
-        context={"paciente": paciente}
+        context={"paciente": paciente,
+                'radiografias': radiografias}
     )
 
 @login_required
 def subir_radiografia(request, id_paciente):
+
     paciente = Paciente.objects.get(pk=id_paciente)
     error = {}
     if request.method == "POST":
         img= request.FILES['img']
-        radigrafia = Radiografia(img_orig=img,
+        radiografia = Radiografia(img_orig=img,
                                 img_detectado='null',
                                 paciente_id = id_paciente)
-        radigrafia.save()
-        return redirect("/paciente/"+str(id_paciente)+"/resultado/"+str(radigrafia.id))
+        radiografia.save()
+        return redirect("/paciente/"+str(id_paciente)+"/resultado/"+str(radiografia.id))
 
     form = pacienteForm()
     return render(
@@ -190,39 +180,30 @@ def subir_radiografia(request, id_paciente):
         template_name="radiografia/subir_radiografia.html",
         context={"paciente": paciente}
     )
-
-'''
-@login_required
-def subir_radiografia(request, id_paciente):
-    paciente = Paciente.objects.get(pk=id_paciente)
-    error = {}
-    if request.method == "POST":
-        form = radigradiaForm(request.FILES['img'])
-        print(form.is_valid())
-        if form.is_valid():
-            img= request.FILES['img']
-            radigrafia = Radiografia(img_orig=img,
-                                img_detectado='null',
-                                paciente_id = id_paciente)
-            radigrafia.save()
-        else:
-            for error in list(form.errors.values()):
-                messages.error(request, error)
-    form = pacienteForm()
-    return render(
-        request=request,
-        template_name="radiografia/subir_radiografia.html",
-        context={"paciente": paciente}
-    )
-'''
 
 def resultado(request, id_paciente, id_radiografia):
+    import os
+    from django.conf import settings
     paciente = Paciente.objects.get(pk=id_paciente)
     imgOrig = Radiografia.objects.get(pk=id_radiografia)
-    
+    img = concat('media/', str(imgOrig.img_orig))
+    text = "Imagen con tumor"
+    if imgOrig.img_detectado == "null":
+        predict = tpredict(img)
+        if predict['tumor']:
+            aaa = str(predict['opimg']).split("/")
+            tumor = aaa[1]+ "/" +aaa[2]
+            imgOrig.img_detectado = tumor
+            imgOrig.save()
+            img = "media/" + tumor
+        else:
+            os.remove(os.path.join(str(predict['opimg'])))
+            text = "Esta imagen no tiene tumor"
     return render(
         request=request,
         template_name="radiografia/analisis.html",
         context={"paciente": paciente,
-                "imagen" : imgOrig}
+                "tumor" : imgOrig,
+                "text": text}
     )
+

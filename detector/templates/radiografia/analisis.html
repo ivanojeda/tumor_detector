@@ -3,5 +3,29 @@
 {% block title %} Index {% endblock %}
 
 {% block content %}
-{{imagen.img_orig}}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      Foto Original
+    </div>
+    <div class="col">
+      {{text}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <img class="img-fluid"
+  src="{{ tumor.img_orig.url }}" alt="">
+    </div>
+    <div class="col">
+      <img class="img-fluid"
+  src="{{ tumor.img_detectado.url }}" alt="">
+    </div>
+  </div>
+  <div class="mt-0">
+  <a  href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Volver a la lista de radiografias</button></a>
+  <a href="/paciente/{{paciente.id}}/subir_radiografia"><button type="button" class="btn btn-primary">Subir otra radiografia</button></a>
+  </div>
+</div>
+
 {% endblock %}
