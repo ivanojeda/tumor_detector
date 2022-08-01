@@ -12,13 +12,17 @@
           <label for="dni">DNI</label>
           <input type="text" id="dni" name="username"><br><br>
           <label for="password">Contraseña:</label>
-          <input type="password" id="password" name="password"><br><br>
+          <input type="password" id="password" name="password">
+          <span id="passwordHelpInline" class="form-text">
+            Mas de 9 caracteres
+          </span><br><br>
           </div>
       </fieldset>
       <div class="form-group">
           <button class="btn btn-outline-info" type="submit">Login</button>
       </div>
   </form>
+  {{ error.dni }}
   <div class="border-top pt-3">
       <small class="text-muted cuenta">
           ¿No tienes cuenta? <a class="ml-2" href="{% url 'register' %}">Registrate</a>
