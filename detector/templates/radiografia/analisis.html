@@ -22,10 +22,14 @@
   src="{{ tumor.img_detectado.url }}" alt="">
     </div>
   </div>
-  <div class="mt-0">
-  <a  href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Volver a la lista de radiografias</button></a>
+
+  <div class="d-flex bd-highlight mb-3 mt-3">
+    <div class="ms-auto p-2 bd-highlight">
+      <a  href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Volver a la lista de radiografias</button></a>
   <a href="/paciente/{{paciente.id}}/subir_radiografia"><button type="button" class="btn btn-primary">Subir otra radiografia</button></a>
+    </div>
   </div>
+
 </div>
 
 {% endblock %}
