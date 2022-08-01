@@ -8,5 +8,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('detector.urls')),
     path('/admin', admin.site.urls),
-    path('', RedirectView.as_view(url='/detector/', permanent=True)),
+    path('', RedirectView.as_view(url='/index/', permanent=True)),
 ]
