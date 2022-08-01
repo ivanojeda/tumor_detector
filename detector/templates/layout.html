@@ -28,18 +28,27 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'index'%}">index</a>
               </li>
+              {% if request.user.is_authenticated %}
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'crear_paciente' %}">Crear paciente</a>
               </li>
               <li class="nav-item">
                 <a href="{% url 'logout' %}" class="nav-link">Disabled</a>
               </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'register' %}" class="nav-link">Registrate</a>
+              </li>
+              {% endif %}
             </ul>
           </div>
         </div>
       </nav>
 
-      <div class="container-sm">
+      <div class="container-sm mt-3">
         {% block content %}
 
         {% endblock %}

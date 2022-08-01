@@ -25,7 +25,7 @@ def register(request):
     if request.user.is_authenticated:
         return redirect('/register')
     if request.method == "POST":
-        if validador_dni(request.POST['dni']) == False:
+        if validador_dni(request.POST['username']) == False:
             error['dni']="DNI incorrecto"
         else:
             form = userRegistrationForm(request.POST)
@@ -55,7 +55,7 @@ def login(request):
     if request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
         if form.is_valid():
-            if validador_dni(request.POST['dni']) == False:
+            if validador_dni(request.POST['username']) == False:
                 error['dni']="DNI incorrecto"
             else:
                 user = authenticate(
