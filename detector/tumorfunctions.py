@@ -31,7 +31,7 @@ def tpredict(inputImgPath,debug=False):
     outputImgPath=getOutputPath(inputImgPath)
     inputImg=cv2.imread(inputImgPath)
     if inputImg.shape !=(256,256,3):
-        inputImg.resize(inputImg ,dsize=(256,256),interpolation=cv2.INTER_NEAREST)
+        inputImg = cv2.resize(inputImg ,dsize=(256,256),interpolation=cv2.INTER_NEAREST)
     result={}
     try:
         resnet=load_model(RESNET_PATH)

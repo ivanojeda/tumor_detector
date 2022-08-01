@@ -20,11 +20,7 @@
           <img class="img-fluid" src="{{radiografia.img_detectado.url}}">
           {% else %} No tiene tumor {% endif %}</td>
         <td>{{radiografia.fecha}}</td>
-        <td>
-          <a href="/paciente/{{paciente.id}}"><button type="button" class="btn btn-primary">Ver paciente</button></a>
-          <a href="/paciente/{{paciente.id}}/edit"><button type="button" class="btn btn-secondary">Editar datos de paciente</button></a>
-
-
+        <td>  
           <!-- Button trigger modal -->
 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   Borrar Radiografia
@@ -43,7 +39,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <a href="/paciente/{{paciente.id}}/delete"><button type="button" class="btn btn-danger">Confirmar</button></a>
+        <a href="/paciente/{{paciente.id}}/delete/{{radiografia.id}}"><button type="button" class="btn btn-danger">Confirmar</button></a>
       </div>
     </div>
   </div>

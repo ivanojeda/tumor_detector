@@ -16,5 +16,6 @@ urlpatterns = [
     path('paciente/<int:id_paciente>/delete', views.borrar_paciente, name='borrar_paciente'),
 
     path('paciente/<int:id_paciente>/subir_radiografia', views.subir_radiografia, name='subir_radiografias'),
-    path('paciente/<int:id_paciente>/resultado/<int:id_radiografia>', views.resultado, name='resultado')
+    path('paciente/<int:id_paciente>/resultado/<int:id_radiografia>', views.resultado, name='resultado'),
+     path('paciente/<int:id_paciente>/delete/<int:id_radiografia>', views.borrar_radiografia, name='borrar_radiografia')
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
