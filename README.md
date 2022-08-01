@@ -24,7 +24,7 @@ En la página principal se puede añadir un paciente pulsando **Crear Paciente**
 
 Además, puede gestionar sus radiografías del paciente, editar sus datos y eliminarlo de la base de datos.
 
-#### 3.3. Gestión de radiografías
+#### 3.3. Gestión de radiografías y diagnóstico
 
 Una vez creado el paciente, el usuario puede gestionar sus radiografías pulsando el **Ver paciente**, que le mostrará las radiografías del paciente junto al diagnóstico de la IA.
 
@@ -36,6 +36,12 @@ Para añadir una radiografía, pulse **Subir radiografía** en la parte inferior
 Para cerrar sesión y volver a la página de acceso pulse la pestaña **Logout**.
 
 ## 4. Funcionamiento
+
+Al subir una imagen, la aplicación la introduce en la IA.
+
+La IA se compone de 2 partes:
+
+##### 1. 
 
 
 
