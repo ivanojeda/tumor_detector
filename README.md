@@ -10,6 +10,33 @@ El tumor cerebral es una patología cuyo tiempo de diagnóstico es clave para la
 
 ## 2. Instalación
 
+### 2.1 Instalar Anaconda
+
+Primero hay que instalar el gestor de entornos y librerías de python Anaconda a través del [siguiente enlace](https://www.anaconda.com/) y seguir todos sus pasos.
+
+### 2.2 Crear entorno e instalar librerías
+
+Una vez instalado Anaconda, abrimos el Anaconda Prompt (se puede acceder a él buscándolo en la barra de búsqueda de inicio de Windows) y ejecutamos los siguienes comandos:
+
+<code>conda create --name tumordetector</code>
+<code>conda activate tumordetector</code>
+<code>conda install django numpy matplotlib</code>
+<code>pip install opencv-python</code>
+<code>pip install tensorflow</code>
+
+### 2.3 Descarga de la aplicación
+
+Para descargar la aplicación acceder al siguiente enlace de google drive:
+dd
+Después, coloque la carpeta tumor_detector donde desée. Copie la ruta a esa carpeta y escriba los siguientes comandos en el Anaconda Prompt:
+<code>cd escriba-aqui-la-ruta</code>
+<code>python manage.py runserver</code>
+
+Si ha seguido los pasos correctamente, debería de aparecer un mensaje en la terminal de que el servidor se ha iniciado correctamente. Cunaod el mensaje aparezca, introduzca la siguiente dirección en su navegador:
+http://127.0.0.1:8000/
+
+Una vez ahí podrá empezar a usar la aplicación siguiendo los pasos que se muestran a continuación:
+
 ## 3. Uso
 
 ### 3.1. Registro y acceso
