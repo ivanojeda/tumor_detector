@@ -18,11 +18,11 @@ Primero hay que instalar el gestor de entornos y librerías de python Anaconda a
 
 Una vez instalado Anaconda, abrimos el Anaconda Prompt (se puede acceder a él buscándolo en la barra de búsqueda de inicio de Windows) y ejecutamos los siguienes comandos:
 
-<code>conda create --name tumordetector</code>
-<code>conda activate tumordetector</code>
-<code>conda install django numpy matplotlib</code>
-<code>pip install opencv-python</code>
-<code>pip install tensorflow</code>
+<code>conda create --name tumordetector</code>  
+<code>conda activate tumordetector</code>  
+<code>conda install django numpy matplotlib</code>  
+<code>pip install opencv-python</code>  
+<code>pip install tensorflow</code>  
 
 ### 2.3 Descarga de la aplicación
 
