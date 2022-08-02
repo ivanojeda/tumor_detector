@@ -76,6 +76,12 @@ Crear una red neuronal desde 0 y entrenarla con radiografías es un proceso muy 
 
 ### 4.4 ResUNet
 
+TUMORDETECTOR implementa la arquitectura ResUNet para la localización de tumores, ya que esta arquitectura no devuelve una categoría, si no que devuelve una imágen relacionada con la de entrada, que en el caso de esta aplicación es la máscara con la localización del tumor en la radiografía.
+
+La ResUNet codifica la imágen a través de una serie de bloques convolucionales residuales y luego hace el proceso inverso para descodificarla. Los bloques residuales de codificación están conectados con los de descodificación, además de con sus capas adyacentes.
+
+<image src="https://www.researchgate.net/profile/S-Arslanturk/publication/335348454/figure/fig4/AS:795043526881281@1566564556188/Flowchart-of-a-Res-U-Net-fully-convolutional-neural-network-for-semantic-segmentation-A.png" >
+
 
 
 
