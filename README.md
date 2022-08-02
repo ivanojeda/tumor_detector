@@ -41,25 +41,42 @@ Para cerrar sesión y volver a la página de acceso pulse la pestaña **Logout**
 
 La IA de TUMORDETECTOR se compone de 2 partes:
 
-- Una primera fase que detecta si la radiografía contiene un tumor mediante una red neuronal residual (ResNet) modificada.
+- Una primera fase que detecta si la radiografía contiene un tumor mediante una red neuronal residual de 50 capas (ResNet50) personalizada.
 
 - Una segunda fase en la cual la IA analiza las imágenes con tumor y los localiza mediante una red neuronal residual en U (ResUNet).
 
 ### 4.2 ResNet50
 
 La estructura ResNet consiste en una red convolucional cuyas capas están interconectadas más allá de sus capas adyacentes.
-<image src="https://sheng-fang.github.io/img/post_img/2020-05-20-review-resnet-family/resnet_module.png">
+
+<image src="https://sheng-fang.github.io/img/post_img/2020-05-20-review-resnet-family/resnet_module.png" width="200">
 
 En el caso de TUMORDETECTOR, se aplica una arquitectura **ResNet50**.
-<image src="https://www.researchgate.net/publication/331364877/figure/fig3/AS:741856270901252@1553883726825/Left-ResNet50-architecture-Blocks-with-dotted-line-represents-modules-that-might-be.png">
 
-Esta red neuronal, especializada en tareas de clasificación, consta de una red neuronal convolucional junto a una última capa densa que con una neurona por cada clase.
+<image src="https://www.researchgate.net/publication/331364877/figure/fig3/AS:741856270901252@1553883726825/Left-ResNet50-architecture-Blocks-with-dotted-line-represents-modules-that-might-be.png" width="400">
 
-### 4.3 Personalización de la ResNet
+Esta red neuronal, diseñada inicialmente para clasificar el conjunto de imágenes **ImageNet** en 1000 categorías, consta de una red neuronal convolucional, que identifica los patrones de las imágenes junto a una última capa densa que los interpreta y clasifica las imágenes en las categorías correspondientes.
 
-Inicialmente, la ResNet50 fue diseñada para clasificar el conjunto de imágenes **ImageNet** en 1000 categorías.
+<image src="https://static.geekbang.org/infoq/5c3862035fff1.png" width="400">
 
-<image src="https://static.geekbang.org/infoq/5c3862035fff1.png">
+### 4.3 Personalización de la ResNet50
+
+Crear una red neuronal desde 0 y entrenarla con radiografías es un proceso muy lento. Sin embargo, existe la técnica del **aprendizaje por transferencia**, que aprovecha parte de una red neuronal entrenada que efectúa una tarea parecida a la que queremos. TUMORDETECTOR se aprovecha de ello implementando la parte convolucional de la ResNet50 entrenada con ImageNet, que identifica patrones, y le añade una red neuronal densa especializada en detectar tumores. La estructura es la siguiente:
+
+1. Capa de entrada que preprocesa las imágenes antes de entrar a la ResNet50.
+2. Bloque ResNet50. Retorna 2048 filtros de 8x8.
+3. Flatten del output de la ResNet50.
+4. Dropout de un 20%.
+5. Capa oculta de 128 neuronas. Activación ReLU.
+6. Dropout del 10%.
+7. Capa oculta de 92 neuronas. Activación ReLU.
+8. Dropout del 10%.
+9. Capa oculta de 48 neuronas. Activación ReLU.
+10. Capa de salida de 1 neurona. Activación Sigmoide. Si se activa, indica presencia de tumor.
+
+
+
+
 
 
 
