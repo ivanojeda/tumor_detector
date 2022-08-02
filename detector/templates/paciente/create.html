@@ -1,38 +1,52 @@
 
 {% extends 'layout.html' %}
 
-{% block title %} Index {% endblock %}
+{% block title %} Create {% endblock %}
 
 {% block content %}
-<div class="content-section">
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            {% if paciente %}
-            <legend class="border-bottom mb-4">Editar Paciente</legend>
-            {% else %}
-            <legend class="border-bottom mb-4">Nuevo Paciente</legend>
-            {% endif %}
-            <label for="dni">DNI</label>
-            <input type="text" id="dni" name="dni" value="{{ paciente.dni }}"> <span class="text-danger">{{ error.dni }}</span><br><br>
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" value="{{ paciente.nombre }}"><br><br>
-            <label for="apellidos">Apellidos</label>
-            <input type="text" id="apellidos" name="apellidos" value="{{ paciente.apellidos }}"><br><br>
-            <label for="email">Correo:</label>
-            <input type="email" id="email" name="email" autocomplete="off" value="{{ paciente.email }}"><br><br>
-            <label for="comentario">Sintomas del paciente</label>
-            <textarea id="comentario" name="comentario" rows="4" cols="50">{{ paciente.comentario }}</textarea>
-            </div>
-        </fieldset>
-        <div class="form-group">
-            {% if paciente %}
-            <button class="btn btn-outline-info" type="submit">editar pacienta</button>
-            {% else %}
-            <button class="btn btn-outline-info" type="submit">crear pacienta</button>
-            {% endif %}
+<div class="container-fluid h-100 pb-4">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <form class="form-login" method="POST">
+                {% csrf_token %}
+                {% if paciente %}
+                    <legend class="border-bottom mb-4">Editar Paciente</legend>
+                {% else %}
+                    <legend class="border-bottom mb-4">Nuevo Paciente</legend>
+                {% endif %}
+                <div class="form-group mb-3">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="text" id="dni" name="dni"  class="form-control" value="{{ paciente.dni }}"> <span class="text-danger">{{ error.dni }}</span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" value="{{ paciente.nombre }}">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" id="apellidos" name="apellidos" class="form-control" value="{{ paciente.apellidos }}">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Correo:</label>
+                    <input type="email" id="email" name="email" class="form-control" autocomplete="off" value="{{ paciente.email }}"><br><br>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="comentario" class="form-label">Sintomas del paciente</label>
+                    <textarea id="comentario" name="comentario" class="form-control" rows="4" cols="50">{{ paciente.comentario }}</textarea>
+                </div>
+                <div class="form-group">
+                    {% if paciente %}
+                        <button class="btn btn-outline-info" type="submit">editar pacienta</button>
+                    {% else %}
+                        <button class="btn btn-outline-info" type="submit">crear pacienta</button>
+                    {% endif %}
+                </div>
+            </form>
         </div>
-    </form>
     </div>
-  </div>
+</div>
 {% endblock %}

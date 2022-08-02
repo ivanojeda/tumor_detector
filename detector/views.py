@@ -19,6 +19,16 @@ from .models import Paciente, Radiografia
 from .tumorfunctions import tpredict
 from .functions import validador_dni
 
+def nosotros(request):
+    navegacion={'page':''}
+    template = loader.get_template('sobre_nosotros.html')
+    context = {
+        'navegacion': navegacion,
+        'value':'none',
+    }
+    return HttpResponse(template.render(context))
+
+
 @user_not_authenticated
 def register(request):
     error = ""

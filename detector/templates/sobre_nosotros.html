@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %} Sobre Nosotros {% endblock %}
+
+{% block content %}
+{%load static %}
+<div class="card mb-3 pt-3">
+    <div class="row g-0">
+      <div class="col-md-3">
+        <img class="img_nosotros" src="{% static 'img/david_lama.jpg' %}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">David Lama Pulido</h5>
+          <p class="card-text">
+            Graduado en Institut Tecnològic de Barcelona en Desarrollo de Aplicaciones Multiplataforma: Sistemas inteligentes, Programación informática</p>
+          <a href="https://www.linkedin.com/in/david-lama/" class="card-text me-3" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="..." style="width: 30px; height: 30px;"> /in/david-lama/</a>
+          <a href="https://github.com/davidlamapul" target="_blank" class="card-text"><img src="https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU" alt="..." style="width: 30px; height: 30px;"> /davidlamapul</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Iván Ojeda Roig</h5>
+                <p class="card-text">
+                  Graduado en IES Virgen del Carmen en una FP de Grado Superior de Desarrollo de Aplicaciones Web. Decidi dedicarme a la programación web al quedar maravillado
+                  por una web que tenia una animacion de fondo. Me considero una persona autodidacta y proactiva con un gran apetito de seguir aprendiendo.</p>
+                <a href="https://www.linkedin.com/in/ivan-ojeda-roig/" class="card-text me-3" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="..." style="width: 30px; height: 30px;"> in/ivan-ojeda-roig/</a>
+                <a href="https://github.com/ivanojeda" class="card-text" target="_blank"><img src="https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU" alt="..." style="width: 30px; height: 30px;"> /ivanojeda</a>
+              </div>
+          </div>
+          <div class="col-md-3">
+            <img class="img_nosotros" src="{% static 'img/ivan_ojeda.jpg' %}" class="img-fluid rounded-start" alt="...">
+          </div>
+    </div>
+</div>
+
+
+<div class="card mb-3">
+    <div class="row g-0">
+        <div class="col-md-3">
+            <img class="img_nosotros" src="{% static 'img/ivan_saiz.jpg' %}" class="img-fluid rounded-start" alt="...">
+          </div>
+      <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title">Ivan Saiz de Lucas</h5>
+            <p class="card-text">
+              Graduado en la Universitat de Barcelona en Máster en Atrofísica, Física de Partículas y Cosmología, Fisica</p>
+            <a href="https://www.linkedin.com/in/ivansaizdelucas/" class="card-text  me-3" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="..." style="width: 30px; height: 30px;"> in/ivansaizdelucas/</a>
+            <a href="https://github.com/ISDL29" class="card-text" target="_blank"><img src="https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU" alt="..." style="width: 30px; height: 30px;"> /ISDL29</a>
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
