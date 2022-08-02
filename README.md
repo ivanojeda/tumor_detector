@@ -26,9 +26,9 @@ Una vez instalado Anaconda, abrimos el Anaconda Prompt (se puede acceder a él b
 
 ### 2.3 Descarga de la aplicación
 
-Para descargar la aplicación acceder al siguiente enlace de google drive:
+Para descargar la aplicación acceder al siguiente enlace de Google Drive:
 dd
-Después, coloque la carpeta tumor_detector donde desée. Copie la ruta a esa carpeta y escriba los siguientes comandos en el Anaconda Prompt:
+Después, coloque la carpeta *tumor_detector* donde desée. Copie la ruta a esa carpeta y escriba los siguientes comandos en el Anaconda Prompt:
 <code>cd escriba-aqui-la-ruta</code>
 <code>python manage.py runserver</code>
 
