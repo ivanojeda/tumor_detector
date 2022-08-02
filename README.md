@@ -74,6 +74,8 @@ Crear una red neuronal desde 0 y entrenarla con radiografías es un proceso muy 
 9. Capa oculta de 48 neuronas. Activación ReLU.
 10. Capa de salida de 1 neurona. Activación Sigmoide. Si se activa, indica presencia de tumor.
 
+### 4.4 ResUNet
+
 
 
 
