@@ -32,7 +32,7 @@ Después, coloque la carpeta *tumor_detector* donde desée. Copie la ruta a esa 
 <code>cd escriba-aqui-la-ruta</code>  
 <code>python manage.py runserver</code>  
 
-Si ha seguido los pasos correctamente, debería de aparecer un mensaje en la terminal de que el servidor se ha iniciado correctamente. Cunaod el mensaje aparezca, introduzca la siguiente dirección en su navegador:
+Si ha seguido los pasos correctamente, debería de aparecer un mensaje en la terminal de que el servidor se ha iniciado correctamente. Cunaod el mensaje aparezca, introduzca la siguiente dirección en su navegador:  
 http://127.0.0.1:8000/
 
 Una vez ahí podrá empezar a usar la aplicación siguiendo los pasos que se muestran a continuación:
